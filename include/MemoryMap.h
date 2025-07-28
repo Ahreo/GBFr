@@ -1,7 +1,7 @@
 #ifndef MEMORY_MAP_H
 #define MEMORY_MAP_H
 
-#include "inttypes.h"
+#include <inttypes.h>
 
 constexpr uint16_t ROM_0_SIZE = 0x4000;
 constexpr uint16_t ROM_1_SIZE = 0x4000;
@@ -20,25 +20,25 @@ constexpr uint16_t HRAM_SIZE = 0x007F;
 
 constexpr uint16_t INT_EN_REG = 0xFFFF;
 
-typedef struct mmap {
+typedef struct MemoryMap {
     public:
-        mmap();
+        MemoryMap();
         uint8_t readByte(uint16_t addr) const;
         void writeByte(uint16_t addr, uint8_t val);
 
     private:
-        uint8_t rom_0[ROM_0_SIZE];
-        uint8_t rom_1[ROM_1_SIZE];
-        uint8_t vram[VRAM_SIZE];
-        uint8_t extram[EXT_RAM_SIZE];
-        uint8_t wram_0[WRAM_0_SIZE];
-        uint8_t wram_1[WRAM_1_SIZE];
-        uint8_t echoram[ECHO_RAM_SIZE];
-        uint8_t oam[OAM_SIZE];
-        uint8_t notusable[NOT_USABLE_SIZE];
-        uint8_t ioreg[IO_REG_SIZE];
-        uint8_t hram[HRAM_SIZE];
-        uint8_t intr_en;
-};
+        uint8_t rom_0[ROM_0_SIZE] = {0};
+        uint8_t rom_1[ROM_1_SIZE] = {0};
+        uint8_t vram[VRAM_SIZE] = {0};
+        uint8_t extram[EXT_RAM_SIZE] = {0};
+        uint8_t wram_0[WRAM_0_SIZE] = {0};
+        uint8_t wram_1[WRAM_1_SIZE] = {0};
+        uint8_t echoram[ECHO_RAM_SIZE] = {0};
+        uint8_t oam[OAM_SIZE] = {0};
+        uint8_t notusable[NOT_USABLE_SIZE] = {0};
+        uint8_t ioreg[IO_REG_SIZE] = {0};
+        uint8_t hram[HRAM_SIZE] = {0};
+        uint8_t intr_en = 0;
+} MemoryMap;
 
 #endif // MEMORY_MAP_H

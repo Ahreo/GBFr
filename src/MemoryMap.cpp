@@ -2,11 +2,11 @@
 #include <cstring>
 #include <cstdio>
 
-mmap::mmap() {
-    memset(this, 0, sizeof(mmap));
+MemoryMap::MemoryMap() {
+    memset(this, 0, sizeof(MemoryMap));
 }
 
-uint8_t mmap::readByte(uint16_t addr) const {
+uint8_t MemoryMap::readByte(uint16_t addr) const {
     if(addr <= 0x3FFF) return rom_0[addr];
     if(addr <= 0x7FFF) return rom_1[addr - 0x4000];
     if(addr <= 0x9FFF) return vram[addr - 0x8000];
@@ -18,10 +18,12 @@ uint8_t mmap::readByte(uint16_t addr) const {
     if(addr <= 0xFEFF) return notusable[addr - 0xFEA0];
     if(addr <= 0xFF7F) return ioreg[addr - 0xFF00];
     if(addr <= 0xFFFE) return hram[addr - 0xFF80];
-    if(addr == 0xFFFF) return intr_en;
+    
+    // If here, addr == 0xFFFF
+    return intr_en;
 }
 
-void mmap::writeByte(uint16_t addr, uint8_t val) {
+void MemoryMap::writeByte(uint16_t addr, uint8_t val) {
     if(addr <= 0x3FFF) rom_0[addr] = val;
     if(addr <= 0x7FFF) rom_1[addr - 0x4000] = val;
     if(addr <= 0x9FFF) vram[addr - 0x8000] = val;

@@ -13,5 +13,7 @@ message(STATUS "building src files...")
 add_library(src ${SRC_FILES})
 target_include_directories(src PUBLIC include)
 
+add_subdirectory(libraries)
+
 add_executable(GBFr main.cpp)
-target_link_libraries(GBFr src)
+target_link_libraries(GBFr PRIVATE src SDL3::SDL3)
